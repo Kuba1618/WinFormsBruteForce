@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Net.Sockets;
-using System.Threading;
-using System.Net;
+
+using System.IO;
 
 namespace tcp_v3
 {
@@ -147,7 +143,57 @@ namespace tcp_v3
             AppendColoredText(richTextBoxOdbior, "["+e.kom.czasOdbioru.ToString()+"] ", Color.Blue);
             AppendColoredText(richTextBoxOdbior, e.kom.tresc, Color.Green);
             AppendColoredText(richTextBoxOdbior, "\n", Color.Green);
+            //START BruteForceAlghoritm
+            string s = BreakPasswords();
+            AppendColoredText(richTextBoxOdbior, s + "\n", Color.DeepSkyBlue);
         }
+
+        //----------------------------- Brute Force -------------------------------------------------------
+
+        public static string BreakPasswords()
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop).ToString() + "\\passwordsToBreak" + ".txt";
+            int numberOfFileLines = File.ReadLines(path).Count();
+
+            DateTime start = DateTime.Now;
+            for (int i = 1; i < numberOfFileLines; i++)
+            {
+                string password = File.ReadLines(path).Skip(i - 1).Take(1).First();
+                BruteForce(password);
+            }
+
+            //Koniec mierzenia czasu
+            DateTime stop = DateTime.Now;
+            TimeSpan czasWykonania = stop - start;
+            int czasLiczbowy = Convert.ToInt32(czasWykonania.TotalMilliseconds);
+
+            StringBuilder stringBuilder = new StringBuilder("");
+            stringBuilder.Append("It took about:  " + czasWykonania.TotalSeconds + "s\n");
+            stringBuilder.Append("It took about:  " + czasLiczbowy + "ms\n");
+            stringBuilder.Append("It took about:  " + czasLiczbowy / numberOfFileLines + "ms / hasło\n");
+            return stringBuilder.ToString();
+        }
+
+        public static void BruteForce(string password1)
+        {
+            BruteForceIter b = new BruteForceIter();
+            b.min = 2;
+            b.max = 4;
+            b.alphabet = "!#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+
+            foreach (string result in b)
+            {
+                //Console.Write(result + "\r");
+                if (result == password1)
+                {
+                    Console.WriteLine(result);
+                    b.SaveResultToFile(result);
+                    return;
+                }
+            }
+
+        }
+        //----------------------------- KONIEC CZĘŚCI Brute Force -------------------------------------------------------
 
         private void klientOdlacz()
         {
@@ -225,5 +271,9 @@ namespace tcp_v3
             pol.odlacz();
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
