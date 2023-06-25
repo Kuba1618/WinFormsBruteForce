@@ -15,7 +15,7 @@ namespace tcp_v3
             InitializeComponent();
         }
 
-        Polaczenie pol = new Polaczenie();
+        static Polaczenie pol = new Polaczenie();
 
         public delegate void DodajKolorowyTekst(RichTextBox RichTextBox, string Text, Color kolor);
         private void DodajKolorowyTekstFn(RichTextBox rtb, string tekst, Color kolor)
@@ -140,12 +140,22 @@ namespace tcp_v3
 
         void pol_KomunikatPrzybyl(object sender, KomunikatEventArgs e)
         {
-            AppendColoredText(richTextBoxOdbior, "["+e.kom.czasOdbioru.ToString()+"] ", Color.Blue);
-            AppendColoredText(richTextBoxOdbior, e.kom.tresc, Color.Green);
-            AppendColoredText(richTextBoxOdbior, "\n", Color.Green);
-            //START BruteForceAlghoritm
-            string s = BreakPasswords();
-            AppendColoredText(richTextBoxOdbior, s + "\n", Color.DeepSkyBlue);
+            if (!e.kom.infoAboutPassword)
+            {
+                AppendColoredText(richTextBoxOdbior, "[" + e.kom.czasOdbioru.ToString() + "] ", Color.Blue);
+                AppendColoredText(richTextBoxOdbior, e.kom.tresc, Color.Green);
+                AppendColoredText(richTextBoxOdbior, "\n", Color.Green);
+                //START BruteForceAlghoritm
+                string mess = BreakPasswords();
+                AppendColoredText(richTextBoxOdbior, mess + "\n", Color.DeepSkyBlue);
+            }
+            else
+            {
+                AppendColoredText(richTextBoxOdbior, "[" + e.kom.czasOdbioru.ToString() + "] ", Color.DeepSkyBlue);
+                AppendColoredText(richTextBoxOdbior, e.kom.tresc, Color.DeepSkyBlue);
+                AppendColoredText(richTextBoxOdbior, "\n", Color.DarkBlue);
+            }
+            
         }
 
         //----------------------------- Brute Force -------------------------------------------------------
@@ -176,24 +186,51 @@ namespace tcp_v3
 
         public static void BruteForce(string password1)
         {
-            BruteForceIter b = new BruteForceIter();
-            b.min = 2;
-            b.max = 4;
-            b.alphabet = "!#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+            BruteForceIter bruteForce = new BruteForceIter();
+            bruteForce.min = 2;
+            bruteForce.max = 4;
+            bruteForce.alphabet = "!#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
 
-            foreach (string result in b)
+            foreach (string result in bruteForce)
             {
                 //Console.Write(result + "\r");
                 if (result == password1)
                 {
+
+                    // SendBrokenPassword
+                    {
+                        Komunikat kom = new Komunikat();
+                        kom.czasNadania = DateTime.Now;
+                        kom.nadawca = "nad1";
+                        kom.tresc = password1;
+                        kom.infoAboutPassword = true;
+                        kom.wazna = false;
+                        //pol.wyslijDoSerwera(kom);
+                        pol.wyslij(kom);
+                    }
+
                     Console.WriteLine(result);
-                    b.SaveResultToFile(result);
+                    bruteForce.SaveResultToFile(result); 
                     return;
                 }
             }
 
         }
         //----------------------------- KONIEC CZĘŚCI Brute Force -------------------------------------------------------
+
+        //----------------------------- START obsługi Brute Force -------------------------------------------------------
+
+        /*public void sendMessage(string message)
+        {
+            string str = textBoxKomunikat.Text;
+            Komunikat kom = new Komunikat();
+            kom.czasNadania = DateTime.Now;
+            kom.nadawca = ""+ kli.tcpKlient.Client.RemoteEndPoint.ToString();
+            kom.tresc = str;
+            kom.wazna = false;
+            pol.wyslij(kom);
+        }*/
+        //----------------------------- KONIEC obsługi Brute Force -------------------------------------------------------
 
         private void klientOdlacz()
         {

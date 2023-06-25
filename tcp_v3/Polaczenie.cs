@@ -17,6 +17,7 @@ namespace tcp_v3
     {
         public string tresc;
         public bool wazna;
+        public bool infoAboutPassword;
         public string nadawca;
         public DateTime czasNadania;
         public DateTime czasOdbioru;
@@ -32,6 +33,7 @@ namespace tcp_v3
             kom.czasNadania = DateTime.Now;
             kom.nadawca = "";
             kom.tresc = "";
+            kom.infoAboutPassword = false;
             kom.wazna = true;
         }
     }
@@ -156,6 +158,33 @@ namespace tcp_v3
             }
             return true;
         }
+
+        public bool wyslijDoSerwera(Komunikat kom)
+        {
+            Klient klient = (Klient)listaKlientow[0];
+                
+            if(klient != null && klient.tcpKlient.Connected)
+            {
+                kom.czasNadania = DateTime.Now;
+                bf.Serialize(klient.tcpKlient.GetStream(), kom);
+            }
+         
+            return true;
+        }
+
+        /*public bool wyslij(Komunikat kom, string sendToIP)
+        {
+            //wyślij o zadanym IP
+            foreach (Klient kli in listaKlientow.Values)
+            {
+                if (kli.tcpKlient.Connected && kli.tcpKlient.Client.RemoteEndPoint.ToString().Equals(sendToIP))
+                {
+                    kom.czasNadania = DateTime.Now;
+                    bf.Serialize(kli.tcpKlient.GetStream(), kom);
+                }
+            }
+            return true;
+        }*/
 
 
         /// <summary>

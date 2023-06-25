@@ -45,7 +45,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxKomunikat.Enabled = false;
             this.textBoxKomunikat.Location = new System.Drawing.Point(16, 246);
-            this.textBoxKomunikat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxKomunikat.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxKomunikat.Name = "textBoxKomunikat";
             this.textBoxKomunikat.Size = new System.Drawing.Size(356, 22);
             this.textBoxKomunikat.TabIndex = 25;
@@ -56,7 +56,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonWyslij.Enabled = false;
             this.buttonWyslij.Location = new System.Drawing.Point(16, 278);
-            this.buttonWyslij.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonWyslij.Margin = new System.Windows.Forms.Padding(4);
             this.buttonWyslij.Name = "buttonWyslij";
             this.buttonWyslij.Size = new System.Drawing.Size(357, 37);
             this.buttonWyslij.TabIndex = 24;
@@ -89,7 +89,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBoxOdbior.Location = new System.Drawing.Point(16, 132);
-            this.richTextBoxOdbior.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.richTextBoxOdbior.Margin = new System.Windows.Forms.Padding(4);
             this.richTextBoxOdbior.Name = "richTextBoxOdbior";
             this.richTextBoxOdbior.ReadOnly = true;
             this.richTextBoxOdbior.Size = new System.Drawing.Size(356, 106);
@@ -101,7 +101,7 @@
             this.textBoxPort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxPort.Location = new System.Drawing.Point(107, 39);
-            this.textBoxPort.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxPort.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(265, 22);
             this.textBoxPort.TabIndex = 21;
@@ -112,17 +112,17 @@
             this.textBoxAdres.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxAdres.Location = new System.Drawing.Point(107, 12);
-            this.textBoxAdres.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxAdres.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxAdres.Name = "textBoxAdres";
             this.textBoxAdres.Size = new System.Drawing.Size(265, 22);
             this.textBoxAdres.TabIndex = 20;
-            this.textBoxAdres.Text = "127.0.0.1";
+            this.textBoxAdres.Text = "192.168.0.16";
             // 
             // buttonSerwuj
             // 
             this.buttonSerwuj.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.buttonSerwuj.Location = new System.Drawing.Point(273, 76);
-            this.buttonSerwuj.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonSerwuj.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSerwuj.Name = "buttonSerwuj";
             this.buttonSerwuj.Size = new System.Drawing.Size(100, 28);
             this.buttonSerwuj.TabIndex = 19;
@@ -134,7 +134,7 @@
             // 
             this.buttonPolacz.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.buttonPolacz.Location = new System.Drawing.Point(107, 76);
-            this.buttonPolacz.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonPolacz.Margin = new System.Windows.Forms.Padding(4);
             this.buttonPolacz.Name = "buttonPolacz";
             this.buttonPolacz.Size = new System.Drawing.Size(100, 28);
             this.buttonPolacz.TabIndex = 18;
@@ -156,7 +156,7 @@
             this.Controls.Add(this.textBoxAdres);
             this.Controls.Add(this.buttonSerwuj);
             this.Controls.Add(this.buttonPolacz);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(394, 358);
             this.Name = "Form1";
             this.Text = "Form1";
